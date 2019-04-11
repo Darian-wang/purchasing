@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>purchasing</title>
+</head>
+<body>
+    <form action="{% url 'search'%}" method="post">
+    <input type="search" placeholder="请输入要查找的商品名称" name="goods_name"><input type="submit" name="search">
+    </form>
+    {% block results%}{% endblock%}
+</body>
+</html>
