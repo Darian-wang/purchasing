@@ -1,7 +1,17 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
 from .models import Goods, Categories
 from purchasing.settings import BASE_DIR
+
+from django.views.generic import ListView
 # Create your views here.
+
+
+class GoodsListView(ListView):
+    model = Goods
+    template_name = 'goods_list.html'
+    context_object_name = 'goods'
+    paginate_by = 10
+    ordering = 'id'
 
 
 def index(request):
