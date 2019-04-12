@@ -42,4 +42,4 @@ def add(request):
                       goods_desc=goods_desc, goods_address=goods_address, goods_category=goods_category,
                       goods_photo=file_obj.name)
         goods.save()
-        return HttpResponse('添加商品成功')
+        return redirect(reverse('index'))

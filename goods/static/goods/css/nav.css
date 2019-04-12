@@ -1,0 +1,29 @@
+
+.purchase-nav {
+    background: #3377aa;
+    height: 60px;
+    overflow: hidden;
+}
+.purchase-nav .purchase-nav-search{
+    float: left;
+}
+.purchase-nav .purchase-nav-search input{
+    height: 40px;
+    margin: 10px 0px;
+}
+.purchase-nav .purchase-nav-links{
+    float: left;
+}
+.purchase-nav .purchase-nav-links ul{
+    height: 40px;
+    margin: 10px 0px;
+}
+.purchase-nav .purchase-nav-links ul li{
+    float: right;
+    list-style: none;
+    margin: 0px 10px;
+}
+.purchase-nav .purchase-nav-links ul li a{
+    color: #fff;
+    text-decoration: none;
+}

@@ -1,13 +1,26 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>purchasing</title>
+    <link rel="stylesheet" href="{% static 'goods/css/nav.css' %}">
 </head>
 <body>
-    <form action="{% url 'search'%}" method="post">
-    <input type="search" placeholder="请输入要查找的商品名称" name="goods_name"><input type="submit" value="search">
-    </form>
+    <div class="purchase-nav">
+        <div class="purchase-nav-search">
+            <form action="{% url 'search'%}" method="post">
+            <input type="search" placeholder="请输入要查找的商品名称" name="goods_name"><input type="submit" value="search">
+            </form>
+        </div>
+        <div class="purchase-nav-links">
+            <ul>
+                <li><a href="#">Orders</a></li>
+                <li><a href="{% url 'add'%}">Goods</a></li>
+                <li><a href="{% url 'index' %}">Index</a></li>
+            </ul>
+        </div>
+    </div>
     {% block results%}{% endblock%}
 </body>
 </html>
