@@ -3,7 +3,7 @@
 
 {% block results%}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <table>
+    <table border="2">
         <tr>
             <th>id</th>
             <th>name</th>
@@ -33,13 +33,22 @@
         {% else %}
             <li class="disabled"><a href="javascript:void(0)">上一页</a></li>
         {% endif%}
-        {% for page in paginator.page_range %}
-            {% if page == page_obj.number %}
-                <li class="active"><a href="javascript:void(0)">{{page}}</a></li>
-            {% else %}
-                <li><a href="{% url 'goods_list'%}?page={{page}}">{{page}}</a></li>
-            {% endif %}
+        {% if left_has_more %}
+            <li><a href="{% url 'goods_list'%}?page=1">1</a></li>
+            <li><a href="javascript:void(0)">...</a></li>
+        {% endif %}
+        {% for page in left_pages %}
+            <li><a href="{% url 'goods_list'%}?page={{page}}">{{page}}</a></li>
         {% endfor %}
+
+        <li class="active"><a href="javescript:void(0)">{{page_obj.number}}</a></li>
+        {% for page in right_pages %}
+            <li><a href="{% url 'goods_list'%}?page={{page}}">{{page}}</a></li>
+        {% endfor %}
+        {% if right_has_more %}
+            <li><a href="javascript:void(0)">...</a></li>
+            <li><a href="{% url 'goods_list'%}?page={{paginator.num_pages}}">{{paginator.num_pages}}</a></li>
+        {% endif %}
         {% if page_obj.has_next %}
             <li><a href="{% url 'goods_list'%}?page={{page_obj.next_page_number}}">下一页</a></li>
         {% else %}

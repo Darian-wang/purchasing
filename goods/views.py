@@ -13,6 +13,37 @@ class GoodsListView(ListView):
     paginate_by = 10
     ordering = 'id'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = context.get('paginator')
+        page_obj = context.get('page_obj')
+        pagination_data = self.get_pagination_data(paginator, page_obj)
+        context.update(pagination_data)
+        return context
+
+    def get_pagination_data(self, paginator, page_obj, around_count=2):
+        current_page = page_obj.number
+        pages_count = paginator.num_pages
+        left_has_more = False
+        right_has_more = False
+
+        if current_page - around_count <= 2:
+            left_pages = range(1, current_page)
+        else:
+            left_has_more = True
+            left_pages = range(current_page-around_count, current_page)
+
+        if current_page+around_count >= pages_count-1:
+            right_pages = range(current_page+1, pages_count+1)
+        else:
+            right_has_more = True
+            right_pages = range(current_page+1, current_page+around_count+1)
+
+        return {'left_pages': left_pages,
+                'right_pages': right_pages,
+                'left_has_more': left_has_more,
+                'right_has_more': right_has_more,}
+
 
 def index(request):
     return render(request, 'index.html')

@@ -109,3 +109,6 @@ venv.bak/
 .idea
 
 .gitignore
+goods/static/*.png
+goods/static/*.jpeg
+goods/static/*.jpg
