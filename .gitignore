@@ -109,6 +109,11 @@ venv.bak/
 .idea
 
 .gitignore
+# jpeg
 goods/static/*.png
 goods/static/*.jpeg
 goods/static/*.jpg
+
+# migrations file
+goods/migrations/
+orders/migrations/

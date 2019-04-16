@@ -6,6 +6,9 @@ from django.db import models
 class Categories(models.Model):
     categories_name = models.CharField(max_length=100)
 
+    class META:
+        db_table = 'categories'
+
 
 class Goods(models.Model):
     goods_name = models.CharField(max_length=200)
@@ -15,5 +18,8 @@ class Goods(models.Model):
     goods_address = models.CharField(max_length=1000)
     goods_category = models.ForeignKey("Categories", on_delete=models.CASCADE)
     goods_photo = models.CharField(max_length=1000)
+
+    class META:
+        db_table = 'goods'
 
 

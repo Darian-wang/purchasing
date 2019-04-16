@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
 from .models import Goods, Categories
+from orders.models import Order
 from purchasing.settings import BASE_DIR
 
 from django.views.generic import ListView
@@ -51,9 +52,14 @@ def index(request):
 
 def search(request):
     goods_name = request.POST.get('goods_name')
-    if goods_name:
+    search_type = request.POST.get('search_type')
+    if search_type == '1' and goods_name:
         goods = Goods.objects.filter(goods_name__contains=goods_name)
         return render(request, 'search.html', context={'goods': goods})
+    elif search_type == '2' and goods_name:
+        # orders = Order.objects.filter(user)
+        print('search order')
+        return redirect(reverse('index'))
     return redirect(reverse('index'))
 
 

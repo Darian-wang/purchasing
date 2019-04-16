@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'goods',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -77,11 +78,11 @@ WSGI_APPLICATION = 'purchasing.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
+        'NAME': 'purchasing',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
-        'PORT': '3307',
+        'PORT': '3306',
     }
 }
 

@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block results%}
+    <table border="2">
+        <tr>
+            <th>order id</th>
+            <th>user_name</th>
+            <th>user_phone</th>
+            <th>user_address</th>
+            <th>goods_name</th>
+            <th>goods_phote</th>
+            <th>order_price</th>
+            <th>order_number</th>
+            <th>create_time</th>
+        </tr>
+        {% for order in orders%}
+        <tr>
+            <td>{{order.id}}</td>
+            <td>{{order.user.user_name}}</td>
+            <td>{{order.user.user_phone}}</td>
+            <td>{{order.user.user_address}}</td>
+            <td>{{order.goods.goods_name}}</td>
+            <td><img src="{%static order.goods.goods_photo%}" width="50px" height="50px"></td>
+            <td>{{order.order_price}}</td>
+            <td>{{order.order_number}}</td>
+            <td>{{order.create_time|date:'Y-m-d H:i:s'}}</td>
+            <td>{{order.goods_category.categories_name}}</td>
+        {%endfor%}
+        </tr>
+    </table>
+{% endblock %}
