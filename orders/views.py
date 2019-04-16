@@ -17,6 +17,19 @@ def delete_order(request):
     return redirect(reverse('orders:order_list'))
 
 
+def order_list_on_bought(request):
+    orders = Order.objects.filter(is_buy=False)
+    return render(request, 'order_list.html', context={'orders': orders})
+
+
+def is_buy(request):
+    order_id = request.GET.get('order_id')
+    orders = Order.objects.get(pk=order_id)
+    orders.is_buy = True
+    orders.save()
+    return redirect(reverse('orders:order_list'))
+
+
 def add_order(request):
     if request.method == 'GET':
         goods = Goods.objects.all()

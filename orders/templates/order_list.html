@@ -15,6 +15,7 @@
             <th>order_price</th>
             <th>order_number</th>
             <th>create_time</th>
+            <th>is_buy</th>
             <th>edit/delete</th>
         </tr>
         {% for order in orders%}
@@ -28,7 +29,21 @@
             <td>{{order.order_price}}</td>
             <td>{{order.order_number}}</td>
             <td>{{order.create_time|date:'Y-m-d H:i:s'}}</td>
-            <td><form action="{% url 'orders:delete_order'%}?order_id={{order.id}}", method="post"><button>delete</button></form></td>
+            <td><form action="{% url 'orders:is_buy'%}?order_id={{order.id}}", method="post">
+                {% if order.is_buy %}
+                    Y
+                {% else %}
+                    N
+                {% endif %}
+                <button>bought</button>
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'orders:delete_order'%}?order_id={{order.id}}", method="post">
+                    <button>delete</button>
+                </form>
+
+            </td>
         </tr>
         {%endfor%}
     </table>

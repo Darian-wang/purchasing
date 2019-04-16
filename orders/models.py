@@ -17,6 +17,7 @@ class Order(models.Model):
     goods = models.ForeignKey('goods.Goods', on_delete=models.CASCADE)
     order_price = models.FloatField()
     order_number = models.CharField(max_length=22)
-    create_time = models.DateTimeField(auto_now=True)
+    create_time = models.DateTimeField(auto_now_add=True)
+    is_buy = models.BooleanField(default=False)
     express_number = models.CharField(max_length=100, null=True)
     express_type = models.CharField(max_length=20, null=True)
