@@ -10,6 +10,13 @@ def order_list(request):
     return render(request, 'order_list.html', context={'orders': orders})
 
 
+def delete_order(request):
+    order_id = request.GET.get('order_id')
+    orders = Order.objects.get(pk=order_id)
+    orders.delete()
+    return redirect(reverse('orders:order_list'))
+
+
 def add_order(request):
     if request.method == 'GET':
         goods = Goods.objects.all()
