@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block results%}
+    <table border="2">
+        <tr>
+            <th>order id</th>
+            <th>user_name</th>
+            <th>user_phone</th>
+            <th>user_address</th>
+            <th>goods_name</th>
+            <th>goods_phote</th>
+            <th>order_price</th>
+            <th>order_number</th>
+            <th>create_time</th>
+            <th>is_buy</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+            {% block order_content%}
+            {% endblock %}
+    </table>
+    <ul class="pagination">
+    </ul>
+
+{% endblock %}

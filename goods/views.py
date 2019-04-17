@@ -1,10 +1,7 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse
 from .models import Goods, Categories
-from orders.models import Order
 from purchasing.settings import BASE_DIR
-
 from django.views.generic import ListView
-# Create your views here.
 
 
 class GoodsListView(ListView):
@@ -50,24 +47,9 @@ def index(request):
     return render(request, 'index.html')
 
 
-def search(request):
-    goods_name = request.POST.get('goods_name')
-    search_type = request.POST.get('search_type')
-    if search_type == '1' and goods_name:
-        goods = Goods.objects.filter(goods_name__contains=goods_name)
-        return render(request, 'search.html', context={'goods': goods})
-    elif search_type == '2' and goods_name:
-        # orders = Order.objects.filter(user)
-        print('search order')
-        return redirect(reverse('index'))
-    return redirect(reverse('index'))
-
-
-def add(request):
+def add_goods(request):
     if request.method == 'GET':
         categories = Categories.objects.all()
-        print('#'*30)
-        print(categories)
         return render(request, 'add.html', context={'categories': categories})
     else:
         goods_name = request.POST.get('goods_name')
@@ -76,11 +58,8 @@ def add(request):
         goods_desc = request.POST.get('goods_desc')
         goods_address = request.POST.get('goods_address')
         category_id = request.POST.get('goods_categories')
-        # goods_photo = request.POST.get('goods_photo')
         import os
         file_obj = request.FILES.get('goods_photo')
-        print(type(file_obj))
-        print(file_obj.name)
         with open(os.path.join(BASE_DIR, 'goods', 'static', file_obj.name), 'wb') as f:
             for chunk in file_obj.chunks():
                 f.write(chunk)
@@ -90,3 +69,43 @@ def add(request):
                       goods_photo=file_obj.name)
         goods.save()
         return redirect(reverse('index'))
+
+
+def delete_goods(request):
+    goods_id = request.POST.get('goods_id')
+    print('goods_id', goods_id)
+    goods = Goods.objects.get(pk=goods_id)
+    goods.delete()
+    return redirect(reverse('index'))
+
+
+def search_goods_by_goods_name(request, goods_name=None):
+    if goods_name is None:
+        return redirect(reverse('index'))
+    goods = Goods.objects.filter(goods_name__contains=goods_name)
+    return render(request, 'search.html', context={'goods': goods})
+
+
+def modify_goods(request):
+    # get goods data
+    goods_id = request.POST.get('goods_id')
+    goods_name = request.POST.get('goods_name')
+    goods_price_in = request.POST.get('goods_price_in')
+    goods_price_out = request.POST.get('goods_price_out')
+    goods_desc = request.POST.get('goods_desc')
+    goods_address = request.POST.get('goods_address')
+    category_name = request.POST.get('category_name')
+    goods_photo = request.POST.get('goods_photo')
+    # search goods by goods_id
+    goods = Goods.objects.get(pk=goods_id)
+    # modify goods attr
+    goods.goods_name = goods_name
+    goods.goods_price_in = goods_price_in
+    goods.goods_price_out = goods_price_out
+    goods.goods_desc = goods_desc
+    goods.goods_address = goods_address
+    goods.goods_category.categories_name = category_name
+    # goods.goods_photo = goods_photo
+    # save
+    goods.save()
+    return redirect(reverse('index'))

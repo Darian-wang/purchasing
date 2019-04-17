@@ -56,9 +56,13 @@ def delete_order(request):
     return redirect(reverse('orders:order_list'))
 
 
-def search_order_by_username(request):
-    username = request.POST.get('username')
-    pass
+def search_order_by_user_name(request, username):
+    users = User.objects.filter(user_name__contains=username).all()
+    orders = []
+    for user in users:
+        user_orders = user.order_set.all()
+        orders.append(user_orders)
+    return render(request, 'search_order.html', context={'orders': orders})
 
 
 def order_list_on_bought(request):

@@ -4,7 +4,6 @@
 {% block results%}
     <table border="2">
         <tr>
-            <th>id</th>
             <th>name</th>
             <th>price_in(HK$)</th>
             <th>price_out(¥)</th>
@@ -12,17 +11,26 @@
             <th>address</th>
             <th>category</th>
             <th>photo</th>
+            <th>修改</th>
+            <th>delete</th>
         </tr>
         {% for good in goods%}
         <tr>
-            <td>{{good.id}}</td>
-            <td>{{good.goods_name}}</td>
-            <td>{{good.goods_price_in}}</td>
-            <td>{{good.goods_price_out}}</td>
-            <td>{{good.goods_desc}}</td>
-            <td>{{good.goods_address}}</td>
-            <td>{{good.goods_category.categories_name}}</td>
-            <td><img src="{%static good.goods_photo%}" width="50px" height="50px"></td>
+            <form action="{% url 'modify_goods'%}" method="post">
+                <td><input type="text" style="border:none" name="goods_name" value="{{good.goods_name}}"></td>
+                <td><input type="text" style="border:none" name="goods_price_in" value="{{good.goods_price_in}}"></td>
+                <td><input type="text" style="border:none" name="goods_price_out" value="{{good.goods_price_out}}"></td>
+                <td><input type="text" style="border:none" name="goods_desc" value="{{good.goods_desc}}"></td>
+                <td><input type="text" style="border:none" name="goods_address" value="{{good.goods_address}}"></td>
+                <td><input type="text" style="border:none" name="category_name" value="{{good.goods_category.categories_name}}"></td>
+                <td><img src="{%static good.goods_photo%}" width="50px" height="50px"></td>
+                <td><button type="submit" name="goods_id" value="{{good.id}}">修改</button></td>
+            </form>
+            <td>
+                <form action="{% url 'delete_goods'%}" method="post">
+                    <button type="submit" name="goods_id" value="{{good.id}}">delete</button>
+                </form>
+            </td>
         {%endfor%}
         </tr>
     </table>
